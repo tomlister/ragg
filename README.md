@@ -5,7 +5,7 @@ rss aggregation service
 
 Visit @ https://ragg.lister.industries
 
-Features:
+### Features
 - No frills. Does what it says it does.
 - Respects your privacy.
   - Your feed sources are stored in your browser session.
