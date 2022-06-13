@@ -2,7 +2,6 @@ package rss
 
 import (
 	"context"
-	"fmt"
 	"html"
 	"sort"
 	"strings"
@@ -39,14 +38,9 @@ func attribute(feed *gofeed.Feed) []*AttributedItem {
 }
 
 func GetFeed(sources []string) []*AttributedItem {
-	/*sources := []string{
-		"https://www.9news.com.au/rss",
-		"https://www.theguardian.com/au/rss",
-	}*/
 	items := []*AttributedItem{}
 	for _, s := range sources {
 		feed, err := getFeed(s)
-		fmt.Printf("%v", feed)
 		if err != nil {
 			continue
 		}
