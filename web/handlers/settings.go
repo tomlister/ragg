@@ -9,8 +9,8 @@ import (
 func getFontFamily(c *gin.Context) string {
 	ff, err := c.Cookie("ff")
 	if err == http.ErrNoCookie {
-		ff = "Times New Roman"
-		c.SetCookie("ff", "Times New Roman", 60*60*24*365*100, "/", "", false, false)
+		ff = "Arial"
+		c.SetCookie("ff", "Arial", 60*60*24*365*100, "/", "", false, false)
 	}
 	return ff
 }
