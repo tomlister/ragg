@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ragg</title>
+    <script>
+        function toggleDesc(id) {
+            const display = document.getElementById(id).style.display;
+            if (display == "block") {
+                document.getElementById(id).style.display = "none";
+            } else {
+                document.getElementById(id).style.display = "block";
+            }
+        }
+    </script>
+    <style>
+        html, body {
+            font-family: {{ .FontFamily }};
+        }
+        .article-title {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .article-desc {
+            background-color: #99FFCC;
+            padding: 1rem;
+        }
+        .active-nav {
+            color:red;
+        }
+        .page {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100vh;
+        }
+        ul {
+            list-style: none;
+        }
+        li.news-item + li.news-item {
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div>
+            <div><b>Ragg</b> | <a class="active-nav" href="/">Feed</a> | <a href="/sources">Sources</a> | <a href="/settings">Settings</a></div>
+            <hr>
+            <h1>Your Feed</h1>
+            <h2>Since your last visit</h2>
+            {{$length := len .New}}
+            {{if eq $length 0}}
+            No new articles? Must be a slow news day 😪
+            {{end}}
+            <ul>
+            {{range $i, $el := .New}}
+                <li class="news-item">
+                    <span class="article-title" onclick="toggleDesc('desc-{{ $i }}')">{{ .Item.Title }}</span>
+                    <br>
+                    <div class="article-desc" id="desc-{{ $i }}" style="display:none;">
+                        <div>{{ .Source }} - {{ .Item.Published }} - <a href="{{ .Item.Link }}">View Article</a></div>
+                        <hr>
+                        {{range $j, $dsc := .Desc}}
+                            <p>{{ $dsc }}</p>
+                        {{end}}
+                    </div>
+                </li>
+            {{end}}
+            </ul>
+            <hr></hr>
+            <h2>Already seen</h2>
+            <ul>
+            {{range $i, $el := .Old}}
+                <li class="news-item">
+                    <span class="article-title" onclick="toggleDesc('desc-{{ $i }}')">{{ .Item.Title }}</span>
+                    <br>
+                    <div class="article-desc" id="desc-{{ $i }}" style="display:none;">
+                        <div>{{ .Source }} - {{ .Item.Published }} - <a href="{{ .Item.Link }}">View Article</a></div>
+                        <hr>
+                        {{range $j, $dsc := .Desc}}
+                            <p>{{ $dsc }}</p>
+                        {{end}}
+                    </div>
+                </li>
+            {{end}}
+            </ul>
+        </div>
+        <div>
+            <hr>
+            <b><a href="https://lister.industries">lister.industries</a></b>
+        </div>
+    </div>
+</body>
+</html>

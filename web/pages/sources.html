@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ragg</title>
+    <script>
+        function toggleDesc(id) {
+            const display = document.getElementById(id).style.display;
+            if (display == "block") {
+                document.getElementById(id).style.display = "none";
+            } else {
+                document.getElementById(id).style.display = "block";
+            }
+        }
+    </script>
+    <style>
+        html, body {
+            font-family: {{ .FontFamily }};
+        }
+        .article-title {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .article-desc {
+            background-color: aquamarine;
+        }
+        .active-nav {
+            color:red;
+        }
+        .delete-source {
+            cursor: pointer;
+        }
+        .page {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100vh;
+        }
+    </style>
+    <script>
+        function addSource() {
+            const url = document.getElementById("new-source").value;
+            const sourcesRaw = document.cookie.split("; ").find(c => c.startsWith("sources=")).split('=')[1];
+            let sources = JSON.parse(decodeURIComponent(sourcesRaw));
+            sources.push(url);
+            const marshalled = JSON.stringify(sources);
+            document.cookie = "sources="+encodeURIComponent(marshalled)+"; SameSite=Lax; Max-Age="+(60*60*24*365*100);
+            window.location.reload();
+        }
+        function deleteSource(url) {
+            const sourcesRaw = document.cookie.split("; ").find(c => c.startsWith("sources=")).split('=')[1];
+            let sources = JSON.parse(decodeURIComponent(sourcesRaw));
+            sources = sources.filter(u => u !== url)
+            const marshalled = JSON.stringify(sources);
+            document.cookie = "sources="+encodeURIComponent(marshalled)+"; SameSite=Lax; Max-Age="+(60*60*24*365*100);
+            window.location.reload();
+        }
+    </script>
+</head>
+<body>
+    <div class="page">
+        <div>
+            <div><b>Ragg</b> | <a href="/">Feed</a> | <a class="active-nav" href="/sources">Sources</a> | <a href="/settings">Settings</a></div>
+            <hr>
+            <h1>Your Sources</h1>
+            {{$length := len .Sources}}
+            {{if eq $length 0}}
+            You have no sources! Try adding some rss feeds.<br><br>
+            {{end}}
+            RSS URL: <input id="new-source"></input> <button onclick="addSource()">Add</button>
+            <ul>
+            {{range $i, $el := .Sources}}
+                <li>
+                    {{ . }} <span aria-tool onclick="deleteSource({{ . }})" class="delete-source">❌</span>
+                </li>
+            {{end}}
+            </ul>
+        </div>
+        <div>
+            <hr>
+            <b><a href="https://lister.industries">lister.industries</a></b>
+        </div>
+    </div>
+</body>
+</html>

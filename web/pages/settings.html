@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ragg</title>
+    <script>
+        function toggleDesc(id) {
+            const display = document.getElementById(id).style.display;
+            if (display == "block") {
+                document.getElementById(id).style.display = "none";
+            } else {
+                document.getElementById(id).style.display = "block";
+            }
+        }
+    </script>
+    <style>
+        html, body {
+            font-family: {{ .FontFamily }};
+        }
+        .article-title {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .article-desc {
+            background-color: aquamarine;
+        }
+        .active-nav {
+            color:red;
+        }
+        .delete-source {
+            cursor: pointer;
+        }
+        .page {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100vh;
+        }
+    </style>
+    <script>
+        function setFont() {
+            const ff = document.getElementById("ff").value;
+            document.cookie = "ff="+encodeURIComponent(ff)+"; SameSite=Lax; Max-Age="+(60*60*24*365*100);
+            window.location.reload();
+        }
+    </script>
+</head>
+<body>
+    <div class="page">
+        <div>
+            <div><b>Ragg</b> | <a href="/">Feed</a> | <a href="/sources">Sources</a> | <a class="active-nav" href="/settings">Settings</a></div>
+            <hr>
+            <h1>Your Settings</h1>
+            Font-Family: <input id="ff" value="{{ .FontFamily }}"></input> <button onclick="setFont()">Set</button>
+        </div>
+        <div>
+            <hr>
+            <b><a href="https://lister.industries">lister.industries</a></b>
+        </div>
+    </div>
+</body>
+</html>
