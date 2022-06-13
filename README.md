@@ -1,4 +1,4 @@
-<img align="right" src="https://github.com/tomlister/ragg/blob/main/media/Ragg.png?raw=true" width="200">
+<img align="right" src="https://github.com/tomlister/ragg/blob/main/media/Ragg-Outline.png?raw=true" width="200">
 
 # ragg
 rss aggregation service
