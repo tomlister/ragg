@@ -42,7 +42,8 @@
     <script>
         function addSource() {
             url = document.getElementById("new-source").value;
-            if (!(url.substring(0,6) === "http://") || !(url.substring(0,7) === "https://")) {
+            console.log(url.substring(0,6))
+            if (((url.substring(0,7) == "http://") || (url.substring(0,8) == "https://")) == false){
                 url = "http://" + url;
             }
             const sourcesRaw = document.cookie.split("; ").find(c => c.startsWith("sources=")).split('=')[1];
