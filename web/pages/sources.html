@@ -41,7 +41,10 @@
     </style>
     <script>
         function addSource() {
-            const url = document.getElementById("new-source").value;
+            url = document.getElementById("new-source").value;
+            if (!(url.substring(0,6) === "http://") || !(url.substring(0,7) === "https://")) {
+                url = "http://" + url;
+            }
             const sourcesRaw = document.cookie.split("; ").find(c => c.startsWith("sources=")).split('=')[1];
             let sources = JSON.parse(decodeURIComponent(sourcesRaw));
             sources.push(url);
