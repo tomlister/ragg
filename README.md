@@ -12,4 +12,4 @@ Visit @ https://ragg.lister.industries
   - Your feed sources are stored in your browser session.
   - HTTP State Management is based.
 - It's customisable.
-  - Currently you can only set the font but we're getting there...
+  - You can set the font, text & bg colors.
