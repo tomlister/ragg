@@ -41,8 +41,7 @@
     </style>
     <script>
         function addSource() {
-            url = document.getElementById("new-source").value;
-            console.log(url.substring(0,6))
+            let url = document.getElementById("new-source").value;
             if (((url.substring(0,7) == "http://") || (url.substring(0,8) == "https://")) == false){
                 url = "http://" + url;
             }
