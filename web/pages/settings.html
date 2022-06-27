@@ -18,6 +18,8 @@
     <style>
         html, body {
             font-family: {{ .FontFamily }};
+            background-color: {{ .BgColor }};
+            color: {{ .Color }};
         }
         .article-title {
             cursor: pointer;
@@ -40,9 +42,25 @@
         }
     </style>
     <script>
+        function setCookie(key, value) {
+            document.cookie = key+"="+encodeURIComponent(value)+"; SameSite=Lax; Max-Age="+(60*60*24*365*100);
+        }
+
         function setFont() {
             const ff = document.getElementById("ff").value;
-            document.cookie = "ff="+encodeURIComponent(ff)+"; SameSite=Lax; Max-Age="+(60*60*24*365*100);
+            setCookie("ff", ff);
+            window.location.reload();
+        }
+
+        function setColor() {
+            const tc = document.getElementById("tc").value;
+            setCookie("tc", tc);
+            window.location.reload();
+        }
+
+        function setBgColor() {
+            const bgc = document.getElementById("bgc").value;
+            setCookie("bgc", bgc);
             window.location.reload();
         }
     </script>
@@ -53,7 +71,9 @@
             <div><b>Ragg</b> | <a href="/">Feed</a> | <a href="/sources">Sources</a> | <a class="active-nav" href="/settings">Settings</a></div>
             <hr>
             <h1>Your Settings</h1>
-            Font-Family: <input id="ff" value="{{ .FontFamily }}"></input> <button onclick="setFont()">Set</button>
+            Font-Family: <input id="ff" value="{{ .FontFamily }}"></input> <button onclick="setFont()">Set</button> <br>
+            Text-Color: <input id="tc" type="color" value="{{ .Color }}"></input> <button onclick="setColor()">Set</button> <br>
+            Background-Color: <input id="bgc" type="color" value="{{ .BgColor }}"></input> <button onclick="setBgColor()">Set</button>
         </div>
         <div>
             <hr>

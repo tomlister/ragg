@@ -36,5 +36,7 @@ func handleSources(c *gin.Context) {
 	c.HTML(http.StatusOK, "sources.html", gin.H{
 		"Sources": sources,
 		"FontFamily": getFontFamily(c),
+		"BgColor": getBgColor(c),
+		"Color": getTextColor(c),
 	})
 }

@@ -47,6 +47,8 @@ func handleIndex(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", gin.H{
 			"News": feed,
 			"FontFamily": getFontFamily(c),
+			"BgColor": getBgColor(c),
+			"Color": getTextColor(c),
 		})
 		return
 	}
@@ -63,5 +65,7 @@ func handleIndex(c *gin.Context) {
 		"New": new,
 		"Old": old,
 		"FontFamily": getFontFamily(c),
+		"BgColor": getBgColor(c),
+		"Color": getTextColor(c),
 	})
 }
